@@ -25,9 +25,21 @@ on:
         type: string
 
 jobs:
+  optimize_ci:
+    runs-on: ubuntu-latest
+    outputs:
+      skip: ${{ steps.check_skip.outputs.skip }}
+    steps:
+      - name: Optimize CI
+        id: check_skip
+        uses: withgraphite/graphite-ci-action@main
+        with:
+          graphite_token: ${{ secrets.GRAPHITE_TOKEN }}
+
   image_info:
+    needs: optimize_ci
     name: Update version history
-    if: ${{ github.ref == 'refs/heads/main' || github.event.base_ref == 'refs/heads/main' }}
+    if: ${{ (github.ref == 'refs/heads/main' || github.event.base_ref == 'refs/heads/main') && needs.optimize_ci.outputs.skip == 'false' }}
     runs-on: ubuntu-latest
     environment: publishing
     permissions:
@@ -36,7 +48,7 @@ jobs:
     steps:
 
     - name: Free more space
-      id: free_space 
+      id: free_space
       run: |
         set -e
         # Ensure enough space is available for build

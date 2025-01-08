@@ -5,11 +5,12 @@
 	},
 	"features": {
 		"ghcr.io/devcontainers/features/git:1": {
-            "version": "latest",
-            "ppa": "false"
-        }
+			"version": "latest",
+			"ppa": "false"
+		}
 	},
-
+	"updateContentCommand": "bun install",
+	"onCreateCommand": "curl -fsSL https://bun.sh/install | bash && bash source ~/.bashrc",
 	// Configure tool-specific properties.
 	"customizations": {
 		// Configure properties specific to VS Code.
@@ -20,13 +21,10 @@
 			]
 		}
 	},
-
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
-
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "yarn install",
-
 	// Set `remoteUser` to `root` to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "node"
 }

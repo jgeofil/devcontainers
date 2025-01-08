@@ -1,12 +1,20 @@
 {
-  "files": [
+	"files": [
 		"src"
 	],
 	"devDependencies": {
 		"mkdirp": "0.5.5",
 		"copyfiles": "^2.4.1",
-		"handlebars": "^4.7.7",
+		"handlebars": "^4.7.8",
 		"jsonc": "^2.0.0",
-		"rimraf": "^3.0.2"
+		"rimraf": "^3.0.2",
+		"@types/bun": "latest"
+	},
+	"scripts": {},
+	"name": "devcontainers",
+	"main": "vscdc",
+	"type": "commonjs",
+	"peerDependencies": {
+		"typescript": "^5.7.2"
 	}
 }

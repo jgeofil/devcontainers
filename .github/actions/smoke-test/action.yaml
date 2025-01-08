@@ -1,4 +1,5 @@
 name: 'Smoke test'
+description: 'This action performs a smoke test on the specified image'
 inputs:
   image:
     description: 'Image to test'
@@ -7,11 +8,11 @@ inputs:
   threshold:
     description: 'Threshold (in GB) to validate that the image size does not excced this limit'
     required: false
-    default: 14
-
+    default: '14'
 runs:
   using: composite
   steps:
+
     - name: Checkout main
       id: checkout_release
       uses: actions/checkout@v3

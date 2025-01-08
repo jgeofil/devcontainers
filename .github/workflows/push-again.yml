@@ -12,14 +12,28 @@ on:
         required: true
 
 jobs:
+  optimize_ci:
+    runs-on: <YOUR_RUNNER>
+    outputs:
+      skip: ${{ steps.check_skip.outputs.skip }}
+    steps:
+      - name: Optimize CI
+        id: check_skip
+        uses: withgraphite/graphite-ci-action@main
+        with:
+          graphite_token: "xnyYigBbGAat5k6rpvGuzZDSw9A8NkHbSXoBRHDqqYjpJZzaufASj3Wv9GnH"
+
+
+
   build-and-push:
     name: Build and push images
-    if: ${{ github.ref == 'refs/heads/main' }}
+    needs: optimize_ci
+    if: ${{ github.ref == 'refs/heads/main' }} && needs.optimize_ci.outputs.skip == 'false'
     runs-on: ubuntu-latest
     environment: publishing
     steps:
     - name: Free more space
-      id: free_space 
+      id: free_space
       run: |
         set -e
         # Ensure enough space is available for build
@@ -33,14 +47,14 @@ jobs:
       with:
         path: 'ref'
         ref: ${{ github.ref }}
-        
+
     - name: Checkout release
       id: checkout_release
       uses: actions/checkout@v3
       with:
         path: 'release'
         ref: ${{ github.event.inputs.release }}
-      
+
     - name: Build and push
       id: build_and_push
       env:
