@@ -11,7 +11,8 @@
 			"extensions": [
 				"mads-hartmann.bash-ide-vscode",
 				"dbaeumer.vscode-eslint",
-				"EditorConfig.EditorConfig"
+				"EditorConfig.EditorConfig",
+				"Graphite.gti-vscode"
 			]
 		}
 	}
